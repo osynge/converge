@@ -1,0 +1,22 @@
+[package]
+name = "clone_with_default_test"
+version = "0.0.1"
+authors = ["Owen Synge <osynge@googlemail.com>"]
+license = "MIT OR Apache-2.0"
+edition = "2021"
+description = "Test layering the configuration from multiple sources using a derived CloneWithDefault trait implementation."
+homepage = ""
+repository = ""
+documentation = ""
+keywords = ["config", "clone_with_default"]
+readme = "crates-io.md"
+include = ["src/**/*.rs", "crates-io.md", "README.md", "LICENSE-APACHE", "LICENSE-MIT"]
+
+[lib]
+name = "clone_with_default_test"
+proc-macro = true
+
+[dependencies]
+clone_with_default = { path = "../clone_with_default" }
+clone_with_default_derive = { path = "../clone_with_default_derive" }
+pretty_assertions = "1"
