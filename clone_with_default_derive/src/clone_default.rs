@@ -46,7 +46,7 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
                 (false, true) => Ok(
                     quote! {#field_name : match self.#field_name
                                 .as_ref()
-                                .or_else(|| default.#field_name.as_ref())
+                                .or(default.#field_name.as_ref())
                             {
                                 Some(p) => Some(p.clone()),
                                 None => None,
