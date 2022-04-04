@@ -1,11 +1,11 @@
 mod tests {
-    use clone_with_default::CloneWithDefault;
+    use clone_or::CloneOr;
 
-    use clone_with_default_derive::CloneWithDefault;
+    use clone_or_derive::CloneOr;
 
     extern crate pretty_assertions;
 
-    #[derive(Debug, PartialEq, CloneWithDefault)]
+    #[derive(Debug, PartialEq, CloneOr)]
     pub struct Config {
         pub config_file: Option<String>,
         pub loglevel: Option<i8>,
@@ -72,7 +72,7 @@ mod tests {
     fn gets_default_with_none() {
         let a = gen_config_with_data_1();
         let b = Config::new();
-        let c = b.clone_with_default(&a);
+        let c = b.clone_or(&a);
         assert_eq!(c, a);
     }
 
@@ -80,7 +80,7 @@ mod tests {
     fn gets_none_with_none() {
         let a = Config::new();
         let b = Config::new();
-        let c = b.clone_with_default(&a);
+        let c = b.clone_or(&a);
         assert_eq!(c, a);
     }
 
@@ -88,7 +88,7 @@ mod tests {
     fn gets_original_with_none() {
         let a = gen_config_with_data_1();
         let b = Config::new();
-        let c = a.clone_with_default(&b);
+        let c = a.clone_or(&b);
         assert_eq!(c, a);
     }
 
@@ -96,7 +96,7 @@ mod tests {
     fn gets_original_with_some() {
         let a = gen_config_with_data_1();
         let b = gen_config_with_data_2();
-        let c = a.clone_with_default(&b);
+        let c = a.clone_or(&b);
         assert_eq!(c, a);
     }
 }

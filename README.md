@@ -1,6 +1,6 @@
-# CloneWithDefault
+# CloneOr
 
-A Layered configuration system for Rust applications.
+A Layered configuration system for Rust applications using little code.
 
 ## Introduction
 
@@ -31,16 +31,16 @@ lifecycle.
 
 ## Quickstart
 
-It is based on a trait `CloneWithDefault` with a single method
-`clone_with_default` this is in the crate `clone_with_default`.
+It is based on a trait `CloneOr` with a single method
+`clone_or` this is in the crate `clone_or`.
 
-    pub trait CloneWithDefault<Rhs = Self> {
-        fn clone_with_default(&self, default: &Rhs) -> Self;
+    pub trait CloneOr<Rhs = Self> {
+        fn clone_or(&self, default: &Rhs) -> Self;
     }
 
-This trait can be derived using `clone_with_default_derive` as shown below.
+This trait can be derived using `clone-or-derive` as shown below.
 
-    #[derive(CloneWithDefault)]
+    #[derive(CloneOr)]
     pub struct Config {
         pub config_file: Option<String>,
         pub loglevel: Option<i8>,
@@ -61,35 +61,35 @@ to derive new instances with clear and simple prescience.
     let config_commandline : Config = parse_commandline_to_config();
     let config_file : Config = parse_file_to_config();
     let config_env : Config = parse_env_to_config();
-    let cfg = config_commandline.clone_with_default(&config_file).clone_with_default(config_env);
+    let cfg = config_commandline.clone_or(&config_file).clone_or(config_env);
 
 ## Designing your configuration structure
 
-The structure implementing the trait `CloneWithDefault` should contain a logical
+The structure implementing the trait `CloneOr` should contain a logical
 grouping of fields to represent each setting you may wish to use as part of your
 layered configuration.
 
-When deriving `CloneWithDefault` with `clone_with_default_derive` you can mark
-fields as also supporting `CloneWithDefault`, this then allows
-
-### Example deriving `CloneWithDefault` with nested structures
+### Example deriving `CloneOr` with nested structures
 
 Nested
 
-  #[derive(CloneWithDefault)]
+    #[derive(CloneOr)]
     pub struct ConfigRabbitMqCredentials {
         pub username: Option<String>,
         pub password: Option<String>,
     }
 
-    #[derive(CloneWithDefault)]
+    #[derive(CloneOr)]
     pub struct ConfigRabbitMQ {
         pub host: Option<String>,
         pub port: Option<i32>,
+        #[clone_or]
         pub credentials: Option<ConfigRabbitMqCredentials>,
     }
 
-When using Fields that also implement `CloneWithDefault` shoudl
+When using Fields types that also implement `CloneOr` you can mark
+fields as also supporting `CloneOr` with the `clone_or` attribute, this then
+allows `clone_or` to be used on this structure by `clone_or`.
 
 As can be seen in the Quickstart These fields are typically
 [Option](https://doc.rust-lang.org/std/option/)\<T\>. This allows the
@@ -97,19 +97,19 @@ implementation to detect that the field is not set and get it from the default
 should that have a value. It is possible to have T typed fields that are not
 Optional values, but this not usually as it reduces the
 
-The type T is bound to implement `CloneWithDefault` or `Clone`.
+The type T is bound to implement `CloneOr` or `Clone`.
 
 ## How to integrate data sources
 
 This library is expected to be used in combination with other libraries to parse
 configuration file formats, the command line, and the execution environment
 variables. In practice the resultant structure presented by these libraries is
-often closely bound to the input source. The `CloneWithDefault trait` requires
+often closely bound to the input source. The `CloneOr trait` requires
 that each source provides a common data structure. By implementing the
 [From trait](https://doc.rust-lang.org/std/convert/trait.From.html) or
 alternatively the
 [TryFrom trait](https://doc.rust-lang.org/std/convert/trait.TryFrom.html) for
-your common data format `CloneWithDefault` can be applied to these data sources.
+your common data format `CloneOr` can be applied to these data sources.
 
 As a non exhaustive list of data source libraries we can recommend:
 

@@ -25,7 +25,7 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
                 match attr.parse_meta().unwrap() {
                     // Find the duplicated idents
                     syn::Meta::Path(ref path)
-                        if path.get_ident().unwrap().to_string() == "cwd" =>
+                        if path.get_ident().unwrap().to_string() == "clone_or" =>
                     {
                         nested = true;
                     }
@@ -37,7 +37,7 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
                 (true, true) => Ok(
                     quote! { #field_name : match (self.#field_name.as_ref(), default.#field_name.as_ref())
                                 {
-                                    (Some(p),Some(q)) => Some(p.clone_with_default(&q)),
+                                    (Some(p),Some(q)) => Some(p.clone_or(&q)),
                                     (Some(p),None) => Some(p.clone()),
                                     (None,Some(p)) => Some(p.clone()),
                                     (None,None) => None,
@@ -52,7 +52,7 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
                                 None => None,
                             }, }),
                 (true, false) => Ok(
-                    quote! { #field_name : self.#field_name.clone_with_default(&default.#field_name), }),
+                    quote! { #field_name : self.#field_name.clone_or(&default.#field_name), }),
                 (false, false) => Ok(quote! {#field_name :  self.#field_name.clone(), }),
             }
         })
@@ -60,8 +60,8 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
 
     Ok(quote! {
     #[automatically_derived]
-    impl CloneWithDefault for #name {
-        fn clone_with_default(&self, default: & #name) -> Self {
+    impl CloneOr for #name {
+        fn clone_or(&self, default: & #name) -> Self {
             #name {
                 #field_token_stream
             }

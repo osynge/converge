@@ -1,7 +1,7 @@
 //! This crate provides a convenient concise way to write unit tests for
-//! implementations of [`CloneWithDefault`].
-extern crate clone_with_default;
+//! implementations of [`CloneOr`].
+extern crate clone_or;
 #[cfg_attr(test, macro_use)]
-extern crate clone_with_default_derive;
+extern crate clone_or_derive;
 mod core;
 mod nested;

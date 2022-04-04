@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "clone_with_default",
-    "clone_with_default_derive",
-    "clone_with_default_test",
+    "clone_or",
+    "clone_or_derive",
+    "clone_or_test",
 ]

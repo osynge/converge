@@ -1,7 +1,7 @@
 #[cfg(test)]
 
 mod tests {
-    use clone_with_default::CloneWithDefault;
+    use clone_or::CloneOr;
     extern crate pretty_assertions;
 
     #[derive(Copy, Clone, PartialEq)]
@@ -26,17 +26,17 @@ mod tests {
         Brown,
     }
 
-    #[derive(Copy, Clone, CloneWithDefault, PartialEq)]
+    #[derive(Copy, Clone, CloneOr, PartialEq)]
     struct Ears {
         fur_type: Option<FurType>,
         ear_type: Option<EarType>,
     }
 
-    #[derive(Copy, Clone, CloneWithDefault, PartialEq)]
+    #[derive(Copy, Clone, CloneOr, PartialEq)]
     struct Rabbit {
         fur_type: Option<FurType>,
         color: Option<Color>,
-        #[cwd]
+        #[clone_or]
         ears: Option<Ears>,
     }
 
@@ -82,14 +82,14 @@ mod tests {
     fn test_can_clone() {
         let undefined = Rabbit::new();
         let george = gen_cashmere_lop();
-        let baby = george.clone_with_default(&undefined);
+        let baby = george.clone_or(&undefined);
         assert!(baby == george)
     }
     #[test]
     fn test_can_default() {
         let emma = Rabbit::new();
         let george = gen_cashmere_lop();
-        let baby = emma.clone_with_default(&george);
+        let baby = emma.clone_or(&george);
         assert!(baby == george)
     }
 
@@ -97,7 +97,7 @@ mod tests {
     fn test_can_ignore() {
         let emma = gen_dutch();
         let george = gen_cashmere_lop();
-        let baby = emma.clone_with_default(&george);
+        let baby = emma.clone_or(&george);
         assert!(baby == emma)
     }
 
@@ -109,7 +109,7 @@ mod tests {
             ear_type: None,
             fur_type: Some(FurType::Long),
         });
-        let baby = george.clone_with_default(&emma);
+        let baby = george.clone_or(&emma);
         assert!(george.fur_type == baby.fur_type);
         assert!(george.color == baby.color);
         assert!(baby.ears.unwrap().ear_type == emma.ears.unwrap().ear_type);
