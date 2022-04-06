@@ -1,5 +1,4 @@
 #[cfg(test)]
-
 mod tests {
     use clone_or::CloneOr;
     extern crate pretty_assertions;

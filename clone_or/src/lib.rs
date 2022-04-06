@@ -32,8 +32,7 @@ configuration content reducing the quantity and complexity of the code base, and
 with it the amount of testing needed.
 
 
-    use clone_or_derive::clone_or;
-    use clone_or::CloneOr;
+    use clone_or::{CloneOr,clone_or};
 
     #[derive(clone_or)]
     struct Simple {
@@ -41,7 +40,7 @@ with it the amount of testing needed.
     }
 
 */
-
+pub use clone_or_derive::clone_or;
 pub trait CloneOr<Rhs = Self> {
     /*! # The CloneOr Trait.
 

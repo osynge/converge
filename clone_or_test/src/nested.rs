@@ -1,5 +1,4 @@
 #[cfg(test)]
-
 mod tests {
     use clone_or::CloneOr;
     extern crate pretty_assertions;
@@ -48,7 +47,7 @@ mod tests {
             Rabbit {
                 fur_type: None,
                 color: None,
-                ears: None,
+                ears: Some(Ears::new()),
             }
         }
     }
