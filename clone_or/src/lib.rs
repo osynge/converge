@@ -1,10 +1,9 @@
 /*!
 # clone_or
-
 This crate facilitates defaulting values in a simple way as a hybrid of
 [Clone](std::clone::Clone) and [Option's or method](`core::option::Option::or`).
-The traits defined in this crate can be derived using `clone_or_derive`.
-Both `clone_or` and `clone_or_derive` where created to separate order of
+The traits defined in this crate can be derived using [clone_or_derive].
+Both [clone_or](crate) and [clone_or_derive] where created to separate order of
 precedence from configuration content.
 
 ## Motivation
@@ -29,8 +28,20 @@ configuration option further increases the quantity of
 [boiler plate code](https://en.wikipedia.org/wiki/Boilerplate_code).
 
 This crate keeps the configuration override precedence separate from
-configuration content reducing the quantity and complexity of the code base.
+configuration content reducing the quantity and complexity of the code base, and
+with it the amount of testing needed.
+
+
+    use clone_or_derive;
+    use clone_or::CloneOr;
+
+    #[derive(clone_or_derive::CloneOr)]
+    struct Simple {
+        number: Option<i32>,
+    }
+
 */
+
 pub trait CloneOr<Rhs = Self> {
     /*! # The CloneOr Trait.
 
@@ -40,10 +51,14 @@ pub trait CloneOr<Rhs = Self> {
 
     # Example
     ```
-    let config_commandline = parse_commandline_to_config();
-    let config_file = parse_file_to_config();
-    let config_env = parse_env_to_config();
-    let cfg = config_commandline.clone_or(&config_env).clone_or(&config_file);
+    use clone_or;
+
+    fn config_precedence<T>(cli_cfg: &T, env_cfg: &T, file_cfg: &T) -> T
+    where
+        T: clone_or::CloneOr,
+    {
+        cli_cfg.clone_or(env_cfg).clone_or(env_cfg)
+    }
     ```
     */
 
