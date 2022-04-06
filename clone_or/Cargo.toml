@@ -12,5 +12,5 @@ keywords = ["config", "clone_or"]
 [lib]
 name = "clone_or"
 
-[dev-dependencies]
+[dependencies]
 clone_or_derive = { path = "../clone_or_derive" }
