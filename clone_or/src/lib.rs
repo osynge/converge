@@ -50,11 +50,11 @@ pub trait CloneOr<Rhs = Self> {
 
     # Example
     ```
-    use clone_or;
+    use clone_or::CloneOr;
 
     fn config_precedence<T>(cli_cfg: &T, env_cfg: &T, file_cfg: &T) -> T
     where
-        T: clone_or::CloneOr,
+        T: CloneOr,
     {
         cli_cfg
             .clone_or(env_cfg)
