@@ -21,13 +21,13 @@ mod tests {
         Brown,
     }
 
-    #[derive(Copy, Clone, CloneOr, PartialEq)]
+    #[derive(Copy, Clone, clone_or, PartialEq)]
     struct Ears {
         fur_type: Option<FurType>,
         ear_type: Option<EarType>,
     }
 
-    #[derive(Copy, Clone, CloneOr, PartialEq)]
+    #[derive(Copy, Clone, clone_or, PartialEq)]
     struct Rabbit {
         fur_type: Option<FurType>,
         color: Option<Color>,

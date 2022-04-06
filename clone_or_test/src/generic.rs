@@ -7,9 +7,12 @@ mod tests {
     where
         T: CloneOr,
     {
-        cli_cfg.clone_or(env_cfg).clone_or(env_cfg)
+        cli_cfg
+            .clone_or(env_cfg)
+            .clone_or(env_cfg)
+            .clone_or(file_cfg)
     }
-    #[derive(CloneOr, PartialEq)]
+    #[derive(clone_or, PartialEq)]
     struct Simple {
         number: Option<i32>,
     }

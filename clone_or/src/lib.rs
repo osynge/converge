@@ -32,10 +32,10 @@ configuration content reducing the quantity and complexity of the code base, and
 with it the amount of testing needed.
 
 
-    use clone_or_derive;
+    use clone_or_derive::clone_or;
     use clone_or::CloneOr;
 
-    #[derive(clone_or_derive::CloneOr)]
+    #[derive(clone_or)]
     struct Simple {
         number: Option<i32>,
     }
@@ -57,7 +57,10 @@ pub trait CloneOr<Rhs = Self> {
     where
         T: clone_or::CloneOr,
     {
-        cli_cfg.clone_or(env_cfg).clone_or(env_cfg)
+        cli_cfg
+            .clone_or(env_cfg)
+            .clone_or(env_cfg)
+            .clone_or(file_cfg)
     }
     ```
     */

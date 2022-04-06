@@ -1,11 +1,11 @@
 mod tests {
     use clone_or::CloneOr;
 
-    use clone_or_derive::CloneOr;
+    use clone_or_derive::clone_or;
 
     extern crate pretty_assertions;
 
-    #[derive(Debug, PartialEq, CloneOr)]
+    #[derive(Debug, PartialEq, clone_or)]
     pub struct Config {
         pub config_file: Option<String>,
         pub loglevel: Option<i8>,

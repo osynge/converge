@@ -2,7 +2,7 @@ use proc_macro::TokenStream;
 mod clone_default;
 use clone_default::impl_hello_world;
 
-#[proc_macro_derive(CloneOr, attributes(clone_or))]
+#[proc_macro_derive(clone_or, attributes(clone_or))]
 pub fn clone_or(tokens: TokenStream) -> TokenStream {
     // Parse the string representation
 
