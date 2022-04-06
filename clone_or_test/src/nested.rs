@@ -13,15 +13,10 @@ mod tests {
     enum FurType {
         Long,
         Short,
-        Medium,
     }
 
     #[derive(Copy, Clone, PartialEq)]
     enum Color {
-        White,
-        Blue,
-        Red,
-        Ivory,
         Sandy,
         Brown,
     }
