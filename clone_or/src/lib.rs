@@ -2,7 +2,7 @@
 # clone_or
 This crate facilitates defaulting values in a simple way as a hybrid of
 [Clone](std::clone::Clone) and [Option's or method](`core::option::Option::or`).
-The traits defined in this crate can be derived using [clone_or_derive].
+The traits defined in this crate can be derived using [clone_or].
 Both [clone_or](crate) and [clone_or_derive] where created to separate order of
 precedence from configuration content.
 
