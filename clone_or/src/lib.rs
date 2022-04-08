@@ -52,14 +52,11 @@ pub trait CloneOr<Rhs = Self> {
     ```
     use clone_or::CloneOr;
 
-    fn config_precedence<T>(cli_cfg: &T, env_cfg: &T, file_cfg: &T) -> T
+    fn config_precedence<T>(cli_cfg: T, env_cfg: T, file_cfg: T) -> T
     where
         T: CloneOr,
     {
-        cli_cfg
-            .clone_or(env_cfg)
-            .clone_or(env_cfg)
-            .clone_or(file_cfg)
+        cli_cfg.clone_or(env_cfg).clone_or(file_cfg)
     }
     ```
     */
@@ -82,5 +79,19 @@ pub trait CloneOr<Rhs = Self> {
     /// calling clone_or on the field's value wrapped by
     /// [`Some`](`core::option::Option::Some`) for both self and default.
 
-    fn clone_or(&self, default: &Rhs) -> Self;
+    fn clone_or(self, default: Rhs) -> Self;
+}
+
+impl<T> CloneOr for Option<T>
+where
+    T: CloneOr,
+{
+    fn clone_or(self, default: Option<T>) -> Self {
+        match (self, default) {
+            (Some(ps), Some(pd)) => Some(ps.clone_or(pd)),
+            (Some(ps), None) => Some(ps),
+            (None, Some(pd)) => Some(pd),
+            (None, None) => None,
+        }
+    }
 }

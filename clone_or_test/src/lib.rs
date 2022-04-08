@@ -5,3 +5,4 @@ extern crate clone_or_derive;
 mod core;
 mod generic;
 mod nested;
+mod not_optional;

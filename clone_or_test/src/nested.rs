@@ -76,14 +76,14 @@ mod tests {
     fn test_can_clone() {
         let undefined = Rabbit::new();
         let george = gen_cashmere_lop();
-        let baby = george.clone_or(&undefined);
+        let baby = george.clone_or(undefined.clone());
         assert!(baby == george)
     }
     #[test]
     fn test_can_default() {
         let emma = Rabbit::new();
         let george = gen_cashmere_lop();
-        let baby = emma.clone_or(&george);
+        let baby = emma.clone_or(george.clone());
         assert!(baby == george)
     }
 
@@ -91,7 +91,7 @@ mod tests {
     fn test_can_ignore() {
         let emma = gen_dutch();
         let george = gen_cashmere_lop();
-        let baby = emma.clone_or(&george);
+        let baby = emma.clone_or(george.clone());
         assert!(baby == emma)
     }
 
@@ -103,7 +103,7 @@ mod tests {
             ear_type: None,
             fur_type: Some(FurType::Long),
         });
-        let baby = george.clone_or(&emma);
+        let baby = george.clone_or(emma.clone());
         assert!(george.fur_type == baby.fur_type);
         assert!(george.color == baby.color);
         assert!(baby.ears.unwrap().ear_type == emma.ears.unwrap().ear_type);

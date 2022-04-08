@@ -32,28 +32,23 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
                     _ => (),
                 }
             }
-
-            match (nested, is_option(&field_ty)) {
-                (true, true) => Ok(
-                    quote! { #field_name : match (self.#field_name.as_ref(), default.#field_name.as_ref())
-                                {
-                                    (Some(p),Some(q)) => Some(p.clone_or(&q)),
-                                    (Some(p),None) => Some(p.clone()),
-                                    (None,Some(p)) => Some(p.clone()),
-                                    (None,None) => None,
-                                }, },
-                ),
-                (false, true) => Ok(
-                    quote! {#field_name : match self.#field_name
-                                .as_ref()
-                                .or(default.#field_name.as_ref())
-                            {
-                                Some(p) => Some(p.clone()),
-                                None => None,
-                            }, }),
-                (true, false) => Ok(
-                    quote! { #field_name : self.#field_name.clone_or(&default.#field_name), }),
-                (false, false) => Ok(quote! {#field_name :  self.#field_name.clone(), }),
+            match nested {
+                true => {
+                    Ok(quote! {#field_name : self.#field_name.clone_or( default.#field_name), })
+                }
+                false => match is_option(&field_ty) {
+                    true => Ok(quote! { #field_name : match self.#field_name
+                        .as_ref()
+                        .or(default.#field_name.as_ref())
+                    {
+                        Some(p) => Some(p.clone()),
+                        None => None,
+                    },
+                    }),
+                    false => Ok(quote! {
+                    #field_name : self.#field_name,
+                     }),
+                },
             }
         })
         .collect::<syn::Result<TokenStream>>()?;
@@ -61,7 +56,7 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
     Ok(quote! {
     #[automatically_derived]
     impl CloneOr for #name {
-        fn clone_or(&self, default: & #name) -> Self {
+        fn clone_or(self, default: #name) -> Self {
             #name {
                 #field_token_stream
             }
