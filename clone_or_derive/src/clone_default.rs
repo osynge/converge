@@ -33,21 +33,17 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
                 }
             }
             match nested {
-                true => {
-                    Ok(quote! {#field_name : self.#field_name.clone_or( default.#field_name), })
-                }
-                false => match is_option(&field_ty) {
-                    true => Ok(quote! { #field_name : match self.#field_name
-                        .as_ref()
-                        .or(default.#field_name.as_ref())
-                    {
-                        Some(p) => Some(p.clone()),
-                        None => None,
+                true => Ok(
+                    quote! {#field_name : self.#field_name.clone_or( default.#field_name),
                     },
+                ),
+                false => match is_option(&field_ty) {
+                    true => Ok(
+                        quote! {#field_name : self.#field_name.or(default.#field_name),
+                        },
+                    ),
+                    false => Ok(quote! {#field_name : self.#field_name,
                     }),
-                    false => Ok(quote! {
-                    #field_name : self.#field_name,
-                     }),
                 },
             }
         })
