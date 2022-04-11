@@ -1,6 +1,6 @@
 use proc_macro::TokenStream;
-mod clone_default;
-use clone_default::impl_hello_world;
+mod config_or_default;
+use config_or_default::impl_config_or_derive;
 
 #[proc_macro_derive(config_or, attributes(config_or))]
 pub fn config_or(tokens: TokenStream) -> TokenStream {
@@ -9,7 +9,7 @@ pub fn config_or(tokens: TokenStream) -> TokenStream {
     let ast = syn::parse_macro_input!(tokens as syn::DeriveInput);
 
     // Build the impl
-    let gen = impl_hello_world(&ast);
+    let gen = impl_config_or_derive(&ast);
 
     // Return the generated impl
     gen.unwrap_or_else(syn::Error::into_compile_error).into()

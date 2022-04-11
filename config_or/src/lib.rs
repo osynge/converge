@@ -89,10 +89,8 @@ pub trait ConfigOr<Rhs = Self> {
 
     fn config_or(self, default: Rhs) -> Self;
 }
-/** If the both `self` option, and `default` option is a Some value, then return
- Some using config_or method. If the both `self` option, and `default` option
- are None, then return None. If `self` option, or `default` option have Some
- value return Some with that value.
+/** Implementing ConfigOr for Option of a structure implementing ConfigOr
+simplifies the derive macro and can be of use.
 */
 impl<T> ConfigOr for Option<T>
 where
