@@ -61,7 +61,7 @@ to derive new instances with clear and simple prescience.
     let config_commandline : Config = parse_commandline_to_config();
     let config_file : Config = parse_file_to_config();
     let config_env : Config = parse_env_to_config();
-    let cfg = config_commandline.config_or(&config_file).config_or(config_env);
+    let cfg = config_commandline.config_or(config_file).config_or(config_env);
 
 ## Designing your configuration structure
 
