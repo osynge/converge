@@ -25,7 +25,7 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
                 match attr.parse_meta().unwrap() {
                     // Find the duplicated idents
                     syn::Meta::Path(ref path)
-                        if path.get_ident().unwrap().to_string() == "clone_or" =>
+                        if path.get_ident().unwrap().to_string() == "config_or" =>
                     {
                         nested = true;
                     }
@@ -34,7 +34,7 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
             }
             match nested {
                 true => Ok(
-                    quote! {#field_name : self.#field_name.clone_or( default.#field_name),
+                    quote! {#field_name : self.#field_name.config_or( default.#field_name),
                     },
                 ),
                 false => match is_option(&field_ty) {
@@ -51,8 +51,8 @@ pub fn impl_hello_world(ast: &DeriveInput) -> syn::Result<TokenStream> {
 
     Ok(quote! {
     #[automatically_derived]
-    impl CloneOr for #name {
-        fn clone_or(self, default: #name) -> Self {
+    impl ConfigOr for #name {
+        fn config_or(self, default: #name) -> Self {
             #name {
                 #field_token_stream
             }

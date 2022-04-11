@@ -1,9 +1,17 @@
 /*!
+<<<<<<< HEAD:clone_or/src/lib.rs
 # clone_or
 This crate facilitates defaulting values in a simple way as a hybrid of
 [Clone](std::clone::Clone) and [Option's or method](`core::option::Option::or`).
 The traits defined in this crate can be derived using [clone_or].
 Both [clone_or](crate) and [clone_or_derive] where created to separate order of
+=======
+# config_or
+This crate facilitates defaulting values in a similar way to
+[Option's or method](`core::option::Option::or`) but for each field in a
+structure. The traits defined in this crate can be derived using [config_or_derive].
+Both [config_or](crate) and [config_or_derive] where created to separate order of
+>>>>>>> dfaab8b (do renaming):config_or/src/lib.rs
 precedence from configuration content.
 
 ## Motivation
@@ -32,63 +40,72 @@ configuration content reducing the quantity and complexity of the code base, and
 with it the amount of testing needed.
 
 
-    use clone_or::{CloneOr,clone_or};
+    use config_or::{ConfigOr,config_or};
 
-    #[derive(clone_or)]
+    #[derive(config_or)]
     struct Simple {
         number: Option<i32>,
     }
 
 */
-pub use clone_or_derive::clone_or;
-pub trait CloneOr<Rhs = Self> {
-    /*! # The CloneOr Trait.
+pub use config_or_derive::config_or;
+pub trait ConfigOr<Rhs = Self> {
+    /*! # The ConfigOr Trait.
 
     Structures can be coupled together to derive new instances with clear and
-    simple prescience. CloneOr can be implemented for any type. The type of
+    simple prescience. ConfigOr can be implemented for any type. The type of
     `default` is defined as the same as self and Self.
 
     # Example
     ```
-    use clone_or::CloneOr;
+    use config_or::ConfigOr;
 
     fn config_precedence<T>(cli_cfg: T, env_cfg: T, file_cfg: T) -> T
     where
-        T: CloneOr,
+        T: ConfigOr,
     {
-        cli_cfg.clone_or(env_cfg).clone_or(file_cfg)
+        cli_cfg.config_or(env_cfg).config_or(file_cfg)
     }
     ```
     */
 
-    /// Clones self, and all fields from self, unless the field is of type
-    /// [`Option<T>`](`core::option::Option`), implements CloneOr, or is of type
-    /// [`Option<T>`](`core::option::Option`) where T implements CloneOr.
+    /// Creates Self, from all fields from self, unless the field is of type
+    /// [`Option<T>`](`core::option::Option`), implements ConfigOr, or is of type
+    /// [`Option<T>`](`core::option::Option`) where T implements ConfigOr.
     ///
     /// If the field of self:
     ///  * is of type [`Option<T>`](`core::option::Option`), and has the
     /// value [None](`core::option::Option::None`), the fields value is cloned
     /// from default's field instead.
-    /// * implements CloneOr, then the result of calling clone_or on that field,
+    /// * implements ConfigOr, then the result of calling config_or on that field,
     /// with the parameter from defaults field.
     /// * is of type [`Option<T>`](`core::option::Option`), where T
-    /// implements the [CloneOr trait](Self) and the value is
+    /// implements the [ConfigOr trait](Self) and the value is
     /// [`Some<T>`](`core::option::Option::Some`) for both
     /// self and default, the returned structures fields value is
     /// [`Some(val)`](`core::option::Option::Some`) where `val` is the result of
-    /// calling clone_or on the field's value wrapped by
+    /// calling config_or on the field's value wrapped by
     /// [`Some`](`core::option::Option::Some`) for both self and default.
 
-    fn clone_or(self, default: Rhs) -> Self;
+    fn config_or(self, default: Rhs) -> Self;
 }
-
-impl<T> CloneOr for Option<T>
+/** If the both `self` option, and `default` option is a Some value, then return
+ Some using config_or method. If the both `self` option, and `default` option
+ are None, then return None. If `self` option, or `default` option have Some
+ value return Some with that value.
+*/
+impl<T> ConfigOr for Option<T>
 where
-    T: CloneOr,
+    T: ConfigOr,
 {
-    fn clone_or(self, default: Option<T>) -> Self {
+    /** If the both `self` option, and `default` option is a Some value, then return
+     Some using config_or method. If the both `self` option, and `default` option
+     are None, then return None. If `self` option, or `default` option have Some
+     value return Some with that value.
+    */
+    fn config_or(self, default: Option<T>) -> Self {
         match (self, default) {
-            (Some(ps), Some(pd)) => Some(ps.clone_or(pd)),
+            (Some(ps), Some(pd)) => Some(ps.config_or(pd)),
             (Some(ps), None) => Some(ps),
             (None, Some(pd)) => Some(pd),
             (None, None) => None,

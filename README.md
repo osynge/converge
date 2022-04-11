@@ -1,4 +1,4 @@
-# CloneOr
+# ConfigOr
 
 A Layered configuration system for Rust applications using little code.
 
@@ -31,16 +31,16 @@ lifecycle.
 
 ## Quickstart
 
-It is based on a trait `CloneOr` with a single method
-`clone_or` this is in the crate `clone_or`.
+It is based on a trait `ConfigOr` with a single method
+`config_or` this is in the crate `config_or`.
 
-    pub trait CloneOr<Rhs = Self> {
-        fn clone_or(&self, default: &Rhs) -> Self;
+    pub trait ConfigOr<Rhs = Self> {
+        fn config_or(&self, default: &Rhs) -> Self;
     }
 
-This trait can be derived using `clone-or-derive` as shown below.
+This trait can be derived using `config_or_derive` as shown below.
 
-    #[derive(CloneOr)]
+    #[derive(ConfigOr)]
     pub struct Config {
         pub config_file: Option<String>,
         pub loglevel: Option<i8>,
@@ -61,35 +61,35 @@ to derive new instances with clear and simple prescience.
     let config_commandline : Config = parse_commandline_to_config();
     let config_file : Config = parse_file_to_config();
     let config_env : Config = parse_env_to_config();
-    let cfg = config_commandline.clone_or(&config_file).clone_or(config_env);
+    let cfg = config_commandline.config_or(&config_file).config_or(config_env);
 
 ## Designing your configuration structure
 
-The structure implementing the trait `CloneOr` should contain a logical
+The structure implementing the trait `ConfigOr` should contain a logical
 grouping of fields to represent each setting you may wish to use as part of your
 layered configuration.
 
-### Example deriving `CloneOr` with nested structures
+### Example deriving `ConfigOr` with nested structures
 
 Nested
 
-    #[derive(CloneOr)]
+    #[derive(ConfigOr)]
     pub struct ConfigRabbitMqCredentials {
         pub username: Option<String>,
         pub password: Option<String>,
     }
 
-    #[derive(CloneOr)]
+    #[derive(ConfigOr)]
     pub struct ConfigRabbitMQ {
         pub host: Option<String>,
         pub port: Option<i32>,
-        #[clone_or]
+        #[config_or]
         pub credentials: Option<ConfigRabbitMqCredentials>,
     }
 
-When using Fields types that also implement `CloneOr` you can mark
-fields as also supporting `CloneOr` with the `clone_or` attribute, this then
-allows `clone_or` to be used on this structure by `clone_or`.
+When using Fields types that also implement `ConfigOr` you can mark
+fields as also supporting `ConfigOr` with the `config_or` attribute, this then
+allows `config_or` to be used on this structure by `config_or`.
 
 As can be seen in the Quickstart These fields are typically
 [Option](https://doc.rust-lang.org/std/option/)\<T\>. This allows the
@@ -97,19 +97,19 @@ implementation to detect that the field is not set and get it from the default
 should that have a value. It is possible to have T typed fields that are not
 Optional values, but this not usually as it reduces the
 
-The type T is bound to implement `CloneOr` or `Clone`.
+The type T is bound to implement `ConfigOr` or `Clone`.
 
 ## How to integrate data sources
 
 This library is expected to be used in combination with other libraries to parse
 configuration file formats, the command line, and the execution environment
 variables. In practice the resultant structure presented by these libraries is
-often closely bound to the input source. The `CloneOr trait` requires
+often closely bound to the input source. The `ConfigOr trait` requires
 that each source provides a common data structure. By implementing the
 [From trait](https://doc.rust-lang.org/std/convert/trait.From.html) or
 alternatively the
 [TryFrom trait](https://doc.rust-lang.org/std/convert/trait.TryFrom.html) for
-your common data format `CloneOr` can be applied to these data sources.
+your common data format `ConfigOr` can be applied to these data sources.
 
 As a non exhaustive list of data source libraries we can recommend:
 

@@ -1,14 +1,14 @@
 #[cfg(test)]
 mod tests {
-    use clone_or::CloneOr;
+    use config_or::ConfigOr;
     extern crate pretty_assertions;
     fn config_precedence<T>(cli_cfg: T, env_cfg: T, file_cfg: T) -> T
     where
-        T: CloneOr,
+        T: ConfigOr,
     {
-        cli_cfg.clone_or(env_cfg).clone_or(file_cfg)
+        cli_cfg.config_or(env_cfg).config_or(file_cfg)
     }
-    #[derive(clone_or, PartialEq, Clone)]
+    #[derive(config_or, PartialEq, Clone)]
     struct Simple {
         number: Option<i32>,
     }

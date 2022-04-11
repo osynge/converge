@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use clone_or::{clone_or, CloneOr};
+    use config_or::{config_or, ConfigOr};
     extern crate pretty_assertions;
 
     #[derive(PartialEq)]
@@ -8,7 +8,7 @@ mod tests {
         number: u32,
     }
 
-    #[derive(clone_or, PartialEq)]
+    #[derive(config_or, PartialEq)]
     struct NotOptional {
         no_clone: NoClone,
     }
@@ -21,7 +21,7 @@ mod tests {
         let some_2 = NotOptional {
             no_clone: NoClone { number: 2 },
         };
-        let out = some_1.clone_or(some_2);
+        let out = some_1.config_or(some_2);
         assert!(
             out == NotOptional {
                 no_clone: NoClone { number: 1 },

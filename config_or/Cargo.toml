@@ -1,16 +1,16 @@
 [package]
-name = "clone_or"
+name = "config_or"
 version = "0.0.1"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
-description = "Layer the configuration from multiple sources using just the CloneOr trait."
-keywords = ["config", "clone_or"]
+description = "Layer the configuration from multiple sources using just the ConfigOr trait."
+keywords = ["config", "config_or"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-name = "clone_or"
+name = "config_or"
 
 [dependencies]
-clone_or_derive = { path = "../clone_or_derive" }
+config_or_derive = { path = "../config_or_derive" }

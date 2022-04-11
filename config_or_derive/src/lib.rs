@@ -2,8 +2,8 @@ use proc_macro::TokenStream;
 mod clone_default;
 use clone_default::impl_hello_world;
 
-#[proc_macro_derive(clone_or, attributes(clone_or))]
-pub fn clone_or(tokens: TokenStream) -> TokenStream {
+#[proc_macro_derive(config_or, attributes(config_or))]
+pub fn config_or(tokens: TokenStream) -> TokenStream {
     // Parse the string representation
 
     let ast = syn::parse_macro_input!(tokens as syn::DeriveInput);
