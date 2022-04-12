@@ -1,6 +1,6 @@
 use proc_macro2::TokenStream;
 use quote::quote;
-use syn::{Data, DataStruct, DeriveInput, Fields, Path, Type, TypePath};
+use syn::{Data, DataStruct, DeriveInput, Fields, Path, PathSegment, Type, TypePath};
 
 pub fn impl_config_or_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
     let name = &ast.ident;
@@ -68,11 +68,17 @@ fn is_option(field_ty: &Type) -> bool {
             ..
         }) => {
             // segments is of Type syn::punctuated::Punctuated<PathSegment, _>
-            if let Some(path_seg) = segments.first() {
-                let ident = &path_seg.ident;
-                return ident == "Option";
+            let filtered: Vec<String> = segments
+                .clone()
+                .into_pairs()
+                .map(|path_pair| path_pair.value().ident.to_string())
+                .collect();
+            match filtered.join("::").as_str() {
+                "Option" | "option::Option" | "std::option::Option" | "core::option::Option" => {
+                    true
+                }
+                _ => false,
             }
-            false
         }
         _ => false,
     }
