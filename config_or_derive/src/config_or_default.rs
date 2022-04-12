@@ -1,6 +1,6 @@
 use proc_macro2::TokenStream;
 use quote::quote;
-use syn::{Data, DataStruct, DeriveInput, Fields, Path, PathSegment, Type, TypePath};
+use syn::{Data, DataStruct, DeriveInput, Fields, Path, Type, TypePath};
 
 pub fn impl_config_or_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
     let name = &ast.ident;
