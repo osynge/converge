@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use config_or::{config_or, ConfigOr};
+    use config_or::ConfigOr;
     extern crate pretty_assertions;
 
     #[derive(Copy, Clone, PartialEq)]
@@ -20,13 +20,13 @@ mod tests {
         Brown,
     }
 
-    #[derive(Copy, Clone, config_or, PartialEq)]
+    #[derive(Copy, Clone, ConfigOr, PartialEq)]
     struct Ears {
         fur_type: Option<FurType>,
         ear_type: Option<EarType>,
     }
 
-    #[derive(Copy, Clone, config_or, PartialEq)]
+    #[derive(Copy, Clone, ConfigOr, PartialEq)]
     struct Rabbit {
         fur_type: Option<FurType>,
         color: Option<Color>,

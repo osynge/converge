@@ -1,17 +1,9 @@
 /*!
-<<<<<<< HEAD:clone_or/src/lib.rs
-# clone_or
-This crate facilitates defaulting values in a simple way as a hybrid of
-[Clone](std::clone::Clone) and [Option's or method](`core::option::Option::or`).
-The traits defined in this crate can be derived using [clone_or].
-Both [clone_or](crate) and [clone_or_derive] where created to separate order of
-=======
 # config_or
 This crate facilitates defaulting values in a similar way to
 [Option's or method](`core::option::Option::or`) but for each field in a
 structure. The traits defined in this crate can be derived using [config_or_derive].
 Both [config_or](crate) and [config_or_derive] where created to separate order of
->>>>>>> dfaab8b (do renaming):config_or/src/lib.rs
 precedence from configuration content.
 
 ## Motivation
@@ -40,15 +32,15 @@ configuration content reducing the quantity and complexity of the code base, and
 with it the amount of testing needed.
 
 
-    use config_or::{ConfigOr,config_or};
+    use config_or::ConfigOr;
 
-    #[derive(config_or)]
+    #[derive(ConfigOr)]
     struct Simple {
         number: Option<i32>,
     }
 
 */
-pub use config_or_derive::config_or;
+pub use config_or_derive::ConfigOr;
 pub trait ConfigOr<Rhs = Self> {
     /*! # The ConfigOr Trait.
 

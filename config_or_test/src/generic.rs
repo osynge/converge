@@ -8,7 +8,7 @@ mod tests {
     {
         cli_cfg.config_or(env_cfg).config_or(file_cfg)
     }
-    #[derive(config_or, PartialEq, Clone)]
+    #[derive(ConfigOr, PartialEq, Clone)]
     struct Simple {
         number: Option<i32>,
     }

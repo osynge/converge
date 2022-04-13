@@ -1,10 +1,10 @@
 #[cfg(test)]
 mod tests {
-    use config_or::{config_or, ConfigOr};
+    use config_or::ConfigOr;
 
     extern crate pretty_assertions;
 
-    #[derive(Debug, PartialEq, config_or, Clone)]
+    #[derive(Debug, PartialEq, ConfigOr, Clone)]
     pub struct Config {
         pub config_file: Option<String>,
         pub loglevel: Option<i8>,

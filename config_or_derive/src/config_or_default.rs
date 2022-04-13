@@ -24,9 +24,7 @@ pub fn impl_config_or_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
             for attr in f.attrs.iter() {
                 match attr.parse_meta().unwrap() {
                     // Find the duplicated idents
-                    syn::Meta::Path(ref path)
-                        if path.get_ident().unwrap().to_string() == "config_or" =>
-                    {
+                    syn::Meta::Path(ref path) if path.get_ident().unwrap() == "config_or" => {
                         nested = true;
                     }
                     _ => (),
@@ -37,7 +35,7 @@ pub fn impl_config_or_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
                     quote! {#field_name : self.#field_name.config_or( default.#field_name),
                     },
                 ),
-                false => match is_option(&field_ty) {
+                false => match is_option(field_ty) {
                     true => Ok(
                         quote! {#field_name : self.#field_name.or(default.#field_name),
                         },

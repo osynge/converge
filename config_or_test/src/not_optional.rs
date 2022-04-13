@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use config_or::{config_or, ConfigOr};
+    use config_or::ConfigOr;
     extern crate pretty_assertions;
 
     #[derive(PartialEq)]
@@ -8,7 +8,7 @@ mod tests {
         number: u32,
     }
 
-    #[derive(config_or, PartialEq)]
+    #[derive(ConfigOr, PartialEq)]
     struct NotOptional {
         no_clone: NoClone,
     }

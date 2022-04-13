@@ -1,9 +1,9 @@
 #[cfg(test)]
 mod tests {
-    use config_or::{config_or, ConfigOr};
+    use config_or::ConfigOr;
     extern crate pretty_assertions;
 
-    #[derive(config_or, PartialEq)]
+    #[derive(ConfigOr, PartialEq)]
     struct Simple {
         number: core::option::Option<u32>,
     }
