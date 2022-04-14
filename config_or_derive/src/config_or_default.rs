@@ -46,11 +46,11 @@ pub fn impl_config_or_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
             }
         })
         .collect::<syn::Result<TokenStream>>()?;
-
+    let (impl_generics, ty_generics, where_clause) = ast.generics.split_for_impl();
     Ok(quote! {
     #[automatically_derived]
-    impl ConfigOr for #name {
-        fn config_or(self, default: #name) -> Self {
+    impl #impl_generics ConfigOr for #name  #ty_generics #where_clause {
+        fn config_or(self, default: #name #ty_generics) -> Self {
             #name {
                 #field_token_stream
             }

@@ -2,6 +2,7 @@
 //! implementations of [config_or::ConfigOr].
 mod core;
 mod generic;
+mod lifetime;
 mod nested;
 mod not_optional;
 mod option_core;
