@@ -2,7 +2,7 @@ use proc_macro::TokenStream;
 mod config_or_default;
 use config_or_default::impl_config_or_derive;
 
-#[proc_macro_derive(ConfigOr, attributes(config_or))]
+#[proc_macro_derive(ConfigOr, attributes(combine))]
 pub fn config_or(tokens: TokenStream) -> TokenStream {
     // Parse the string representation
 
