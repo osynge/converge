@@ -30,7 +30,7 @@ mod tests {
     struct Rabbit {
         fur_type: Option<FurType>,
         color: Option<Color>,
-        #[config_or]
+        #[combine(nest)]
         ears: Option<Ears>,
     }
 
