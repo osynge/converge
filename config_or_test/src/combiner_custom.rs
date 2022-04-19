@@ -6,7 +6,7 @@ mod tests {
 
     #[derive(ConfigOr, PartialEq)]
     struct Simple {
-        #[combine(combiner = simple_custom_combiner)]
+        #[combine(combiner = custom_combiner_simple)]
         number: Vec<i16>,
     }
 
@@ -21,7 +21,7 @@ mod tests {
         }
     }
 
-    fn simple_custom_combiner(a: Vec<i16>, b: Vec<i16>) -> Vec<i16> {
+    fn custom_combiner_simple(a: Vec<i16>, b: Vec<i16>) -> Vec<i16> {
         match a.len() == 0 {
             false => a,
             true => b,
