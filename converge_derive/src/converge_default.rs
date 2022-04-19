@@ -22,7 +22,7 @@ pub fn impl_converge_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
             let meta: CombineMeta = f
                 .attrs
                 .iter()
-                .filter(|attr| attr.path.is_ident("combine"))
+                .filter(|attr| attr.path.is_ident("converge"))
                 .try_fold(CombineMeta::default(), |meta, attr| {
                     let list: syn::punctuated::Punctuated<CombineMeta, syn::Token![,]> =
                         attr.parse_args_with(syn::punctuated::Punctuated::parse_terminated)?;
@@ -33,11 +33,11 @@ pub fn impl_converge_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
             let field_name = &f.ident;
             let field_ty = &f.ty;
 
-            match (meta.nest, meta.combiner) {
+            match (meta.nest, meta.strategy) {
                 // This should never happen if checked CombineMeta::merge
                 (Some(_), Some(_)) => panic!("conflicting attribute argument"),
-                (None, Some(combine_fn)) => Ok(
-                    quote! {#field_name : #combine_fn(self.#field_name , default.#field_name),
+                (None, Some(strategy_fn)) => Ok(
+                    quote! {#field_name : #strategy_fn(self.#field_name , default.#field_name),
                     },
                 ),
                 (Some(_), None) => Ok(
@@ -94,7 +94,7 @@ fn is_option(field_ty: &Type) -> bool {
 #[derive(Default)]
 struct CombineMeta {
     nest: Option<proc_macro2::Span>,
-    combiner: Option<Ident>,
+    strategy: Option<Ident>,
 }
 
 impl CombineMeta {
@@ -103,13 +103,13 @@ impl CombineMeta {
         other.invalid()?;
         let output = Self {
             nest: self.nest.or(other.nest),
-            combiner: self.combiner.or(other.combiner),
+            strategy: self.strategy.or(other.strategy),
         };
         output.invalid()?;
         Ok(output)
     }
     fn invalid(&self) -> syn::Result<()> {
-        match (self.nest.as_ref(), self.combiner.as_ref()) {
+        match (self.nest.as_ref(), self.strategy.as_ref()) {
             (Some(a), Some(b)) => {
                 let mut error = syn::Error::new(*a, "conflicting attribute argument");
                 error.combine(syn::Error::new_spanned(
@@ -131,16 +131,16 @@ impl syn::parse::Parse for CombineMeta {
             let nest: kw::nest = val?;
             Ok(Self {
                 nest: Some(nest.span),
-                combiner: None,
+                strategy: None,
             })
-        } else if lookahead.peek(kw::combiner) {
-            let _: kw::combiner = input.parse()?;
+        } else if lookahead.peek(kw::strategy) {
+            let _: kw::strategy = input.parse()?;
             let _: syn::Token![=] = input.parse()?;
             let vis = input.parse()?;
 
             Ok(Self {
                 nest: None,
-                combiner: Some(vis),
+                strategy: Some(vis),
             })
         } else {
             Err(lookahead.error())
@@ -152,5 +152,5 @@ mod kw {
     use syn::custom_keyword;
 
     custom_keyword!(nest);
-    custom_keyword!(combiner);
+    custom_keyword!(strategy);
 }

@@ -6,7 +6,7 @@ mod tests {
 
     #[derive(Converge, PartialEq)]
     struct Simple {
-        #[combine(combiner = custom_combiner_simple)]
+        #[converge(strategy = custom_combiner_simple)]
         number: Vec<i16>,
     }
 

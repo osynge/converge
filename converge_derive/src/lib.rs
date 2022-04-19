@@ -2,7 +2,24 @@ use proc_macro::TokenStream;
 mod converge_default;
 use converge_default::impl_converge_derive;
 
-#[proc_macro_derive(Converge, attributes(combine))]
+#[proc_macro_derive(Converge, attributes(converge))]
+
+/** Simple macro to derive the Converge trait.
+
+The combine attribute can take either:
+
+* #[combine(nest)]
+* #[combine(strategy = custom_converge_function)]
+
+## nest
+
+This recursively applies the converge trait.
+
+## strategy
+
+Takes a function to implement the converge operation for the field.
+
+ */
 pub fn converge(tokens: TokenStream) -> TokenStream {
     // Parse the string representation
 
