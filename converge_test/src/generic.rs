@@ -1,14 +1,14 @@
 #[cfg(test)]
 mod tests {
-    use config_or::ConfigOr;
+    use converge::Converge;
     extern crate pretty_assertions;
     fn config_precedence<T>(cli_cfg: T, env_cfg: T, file_cfg: T) -> T
     where
-        T: ConfigOr,
+        T: Converge,
     {
-        cli_cfg.config_or(env_cfg).config_or(file_cfg)
+        cli_cfg.converge(env_cfg).converge(file_cfg)
     }
-    #[derive(ConfigOr, PartialEq, Clone)]
+    #[derive(Converge, PartialEq, Clone)]
     struct Simple {
         number: Option<i32>,
     }

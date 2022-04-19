@@ -2,7 +2,7 @@ use proc_macro2::TokenStream;
 use quote::quote;
 use syn::{Data, DataStruct, DeriveInput, Fields, Ident, Path, Type, TypePath};
 
-pub fn impl_config_or_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
+pub fn impl_converge_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
     let name = &ast.ident;
     let fields = match &ast.data {
         Data::Struct(DataStruct {
@@ -41,7 +41,7 @@ pub fn impl_config_or_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
                     },
                 ),
                 (Some(_), None) => Ok(
-                    quote! {#field_name : self.#field_name.config_or( default.#field_name),
+                    quote! {#field_name : self.#field_name.converge( default.#field_name),
                     },
                 ),
                 (None, None) => match is_option(field_ty) {
@@ -58,8 +58,8 @@ pub fn impl_config_or_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
     let (impl_generics, ty_generics, where_clause) = ast.generics.split_for_impl();
     Ok(quote! {
     #[automatically_derived]
-    impl #impl_generics ConfigOr for #name  #ty_generics #where_clause {
-        fn config_or(self, default: #name #ty_generics) -> Self {
+    impl #impl_generics Converge for #name  #ty_generics #where_clause {
+        fn converge(self, default: #name #ty_generics) -> Self {
             #name {
                 #field_token_stream
             }

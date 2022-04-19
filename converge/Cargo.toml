@@ -1,16 +1,16 @@
 [package]
-name = "config_or"
+name = "converge"
 version = "0.0.1"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
-description = "Layer the configuration from multiple sources using just the ConfigOr trait."
-keywords = ["config", "config_or"]
+description = "Layer the configuration from multiple sources using just the Converge trait."
+keywords = ["config", "converge"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-name = "config_or"
+name = "converge"
 
 [dependencies]
-config_or_derive = { path = "../config_or_derive" }
+converge_derive = { path = "../converge_derive" }

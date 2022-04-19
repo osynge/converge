@@ -1,22 +1,22 @@
 [package]
-name = "config_or_test"
+name = "converge_test"
 version = "0.0.1"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
-description = "Test layering the configuration from multiple sources using a derived ConfigOr trait implementation."
+description = "Test layering the configuration from multiple sources using a derived Converge trait implementation."
 homepage = ""
 repository = ""
 documentation = ""
-keywords = ["config", "config_or"]
+keywords = ["config", "converge"]
 readme = "crates-io.md"
 include = ["src/**/*.rs", "crates-io.md", "README.md", "LICENSE-APACHE", "LICENSE-MIT"]
 
 [lib]
-name = "config_or_test"
+name = "converge_test"
 proc-macro = true
 
 [dependencies]
-config_or = { path = "../config_or" }
-config_or_derive = { path = "../config_or_derive" }
+converge = { path = "../converge" }
+converge_derive = { path = "../converge_derive" }
 pretty_assertions = "1"

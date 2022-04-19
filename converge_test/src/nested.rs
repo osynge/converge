@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use config_or::ConfigOr;
+    use converge::Converge;
     extern crate pretty_assertions;
 
     #[derive(Copy, Clone, PartialEq)]
@@ -20,13 +20,13 @@ mod tests {
         Brown,
     }
 
-    #[derive(Copy, Clone, ConfigOr, PartialEq)]
+    #[derive(Copy, Clone, Converge, PartialEq)]
     struct Ears {
         fur_type: Option<FurType>,
         ear_type: Option<EarType>,
     }
 
-    #[derive(Copy, Clone, ConfigOr, PartialEq)]
+    #[derive(Copy, Clone, Converge, PartialEq)]
     struct Rabbit {
         fur_type: Option<FurType>,
         color: Option<Color>,
@@ -76,14 +76,14 @@ mod tests {
     fn test_can_clone() {
         let undefined = Rabbit::new();
         let george = gen_cashmere_lop();
-        let baby = george.config_or(undefined.clone());
+        let baby = george.converge(undefined.clone());
         assert!(baby == george)
     }
     #[test]
     fn test_can_default() {
         let emma = Rabbit::new();
         let george = gen_cashmere_lop();
-        let baby = emma.config_or(george.clone());
+        let baby = emma.converge(george.clone());
         assert!(baby == george)
     }
 
@@ -91,7 +91,7 @@ mod tests {
     fn test_can_ignore() {
         let emma = gen_dutch();
         let george = gen_cashmere_lop();
-        let baby = emma.config_or(george.clone());
+        let baby = emma.converge(george.clone());
         assert!(baby == emma)
     }
 
@@ -103,7 +103,7 @@ mod tests {
             ear_type: None,
             fur_type: Some(FurType::Long),
         });
-        let baby = george.config_or(emma.clone());
+        let baby = george.converge(emma.clone());
         assert!(george.fur_type == baby.fur_type);
         assert!(george.color == baby.color);
         assert!(baby.ears.unwrap().ear_type == emma.ears.unwrap().ear_type);

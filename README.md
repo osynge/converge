@@ -1,4 +1,4 @@
-# ConfigOr
+# Converge
 
 A Layered configuration system for Rust applications using little code.
 
@@ -31,16 +31,16 @@ lifecycle.
 
 ## Quickstart
 
-It is based on a trait `ConfigOr` with a single method
-`config_or` this is in the crate `config_or`.
+It is based on a trait `Converge` with a single method
+`converge` this is in the crate `converge`.
 
-    pub trait ConfigOr<Rhs = Self> {
-        fn config_or(&self, default: &Rhs) -> Self;
+    pub trait Converge<Rhs = Self> {
+        fn converge(&self, default: &Rhs) -> Self;
     }
 
-This trait can be derived using `config_or_derive` as shown below.
+This trait can be derived using `converge_derive` as shown below.
 
-    #[derive(ConfigOr)]
+    #[derive(Converge)]
     pub struct Config {
         pub config_file: Option<String>,
         pub loglevel: Option<i8>,
@@ -61,35 +61,35 @@ to derive new instances with clear and simple prescience.
     let config_commandline : Config = parse_commandline_to_config();
     let config_file : Config = parse_file_to_config();
     let config_env : Config = parse_env_to_config();
-    let cfg = config_commandline.config_or(config_file).config_or(config_env);
+    let cfg = config_commandline.converge(config_file).converge(config_env);
 
 ## Designing your configuration structure
 
-The structure implementing the trait `ConfigOr` should contain a logical
+The structure implementing the trait `Converge` should contain a logical
 grouping of fields to represent each setting you may wish to use as part of your
 layered configuration.
 
-### Example deriving `ConfigOr` with nested structures
+### Example deriving `Converge` with nested structures
 
 Nested
 
-    #[derive(ConfigOr)]
+    #[derive(Converge)]
     pub struct ConfigRabbitMqCredentials {
         pub username: Option<String>,
         pub password: Option<String>,
     }
 
-    #[derive(ConfigOr)]
+    #[derive(Converge)]
     pub struct ConfigRabbitMQ {
         pub host: Option<String>,
         pub port: Option<i32>,
-        #[config_or]
+        #[converge]
         pub credentials: Option<ConfigRabbitMqCredentials>,
     }
 
-When using Fields types that also implement `ConfigOr` you can mark
-fields as also supporting `ConfigOr` with the `config_or` attribute, this then
-allows `config_or` to be used on this structure by `config_or`.
+When using Fields types that also implement `Converge` you can mark
+fields as also supporting `Converge` with the `converge` attribute, this then
+allows `converge` to be used on this structure by `converge`.
 
 As can be seen in the Quickstart These fields are typically
 [Option](https://doc.rust-lang.org/std/option/)\<T\>. This allows the
@@ -97,19 +97,19 @@ implementation to detect that the field is not set and get it from the default
 should that have a value. It is possible to have T typed fields that are not
 Optional values, but this not usually as it reduces the
 
-The type T is bound to implement `ConfigOr` or `Clone`.
+The type T is bound to implement `Converge` or `Clone`.
 
 ## How to integrate data sources
 
 This library is expected to be used in combination with other libraries to parse
 configuration file formats, the command line, and the execution environment
 variables. In practice the resultant structure presented by these libraries is
-often closely bound to the input source. The `ConfigOr trait` requires
+often closely bound to the input source. The `Converge trait` requires
 that each source provides a common data structure. By implementing the
 [From trait](https://doc.rust-lang.org/std/convert/trait.From.html) or
 alternatively the
 [TryFrom trait](https://doc.rust-lang.org/std/convert/trait.TryFrom.html) for
-your common data format `ConfigOr` can be applied to these data sources.
+your common data format `Converge` can be applied to these data sources.
 
 As a non exhaustive list of data source libraries we can recommend:
 

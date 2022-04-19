@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use config_or::ConfigOr;
+    use converge::Converge;
     extern crate pretty_assertions;
 
     #[derive(PartialEq)]
@@ -8,7 +8,7 @@ mod tests {
         number: u32,
     }
 
-    #[derive(ConfigOr, PartialEq)]
+    #[derive(Converge, PartialEq)]
     struct NotOptional {
         no_clone: NoClone,
     }
@@ -21,7 +21,7 @@ mod tests {
         let some_2 = NotOptional {
             no_clone: NoClone { number: 2 },
         };
-        let out = some_1.config_or(some_2);
+        let out = some_1.converge(some_2);
         assert!(
             out == NotOptional {
                 no_clone: NoClone { number: 1 },

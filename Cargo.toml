@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "config_or",
-    "config_or_derive",
-    "config_or_test",
+    "converge",
+    "converge_derive",
+    "converge_test",
 ]

@@ -1,15 +1,15 @@
 [package]
-name = "config_or_derive"
+name = "converge_derive"
 version = "0.0.1"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
-description = "Layer the configuration from multiple sources using a derived ConfigOr trait implementation."
-keywords = ["config", "config_or"]
+description = "Layer the configuration from multiple sources using a derived Converge trait implementation."
+keywords = ["config", "converge"]
 
 
 [lib]
-name = "config_or_derive"
+name = "converge_derive"
 proc-macro = true
 
 [dependencies]

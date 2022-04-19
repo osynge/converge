@@ -1,10 +1,10 @@
 #[cfg(test)]
 mod tests {
-    use config_or::ConfigOr;
+    use converge::Converge;
 
     extern crate pretty_assertions;
 
-    #[derive(Debug, PartialEq, ConfigOr, Clone)]
+    #[derive(Debug, PartialEq, Converge, Clone)]
     pub struct Config {
         pub config_file: Option<String>,
         pub loglevel: Option<i8>,
@@ -71,7 +71,7 @@ mod tests {
     fn gets_default_with_none() {
         let a = gen_config_with_data_1();
         let b = Config::new();
-        let c = b.config_or(a.clone());
+        let c = b.converge(a.clone());
         assert_eq!(c, a);
     }
 
@@ -79,7 +79,7 @@ mod tests {
     fn gets_none_with_none() {
         let a = Config::new();
         let b = Config::new();
-        let c = b.config_or(a.clone());
+        let c = b.converge(a.clone());
         assert_eq!(c, a);
     }
 
@@ -87,7 +87,7 @@ mod tests {
     fn gets_original_with_none() {
         let a = gen_config_with_data_1();
         let b = Config::new();
-        let c = a.clone().config_or(b.clone());
+        let c = a.clone().converge(b.clone());
         assert_eq!(c, a);
     }
 
@@ -95,7 +95,7 @@ mod tests {
     fn gets_original_with_some() {
         let a = gen_config_with_data_1();
         let b = gen_config_with_data_2();
-        let c = a.clone().config_or(b.clone());
+        let c = a.clone().converge(b.clone());
         assert_eq!(c, a);
     }
 }
