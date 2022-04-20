@@ -6,17 +6,17 @@ license = "MIT OR Apache-2.0"
 edition = "2021"
 description = "Test layering the configuration from multiple sources using a derived Converge trait implementation."
 homepage = ""
-repository = ""
-documentation = ""
-keywords = ["config", "converge"]
+repository = "https://github.com/osynge/converge"
+keywords = ["config", "converge", "merge", "macros", "derive", "configuration"]
 readme = "crates-io.md"
 include = ["src/**/*.rs", "crates-io.md", "README.md", "LICENSE-APACHE", "LICENSE-MIT"]
+categories = ["data-structures", "config"]
 
 [lib]
 name = "converge_test"
 proc-macro = true
 
 [dependencies]
-converge = { path = "../converge" }
-converge_derive = { path = "../converge_derive" }
+converge = { version = "0.0.1", path = "../converge" }
+converge_derive = { version = "0.0.1", path = "../converge_derive" }
 pretty_assertions = "1"

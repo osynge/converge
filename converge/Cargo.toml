@@ -5,7 +5,9 @@ authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
 description = "Layer the configuration from multiple sources using just the Converge trait."
-keywords = ["config", "converge"]
+keywords = ["config", "converge", "merge", "macros", "derive", "configuration"]
+repository = "https://github.com/osynge/converge"
+categories = ["data-structures", "config"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -13,4 +15,4 @@ keywords = ["config", "converge"]
 name = "converge"
 
 [dependencies]
-converge_derive = { path = "../converge_derive" }
+converge_derive = { version = "0.0.1", path = "../converge_derive" }
