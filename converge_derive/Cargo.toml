@@ -8,6 +8,7 @@ description = "Layer the configuration from multiple sources using a derived Con
 keywords = ["config", "converge", "merge", "derive", "configuration"]
 repository = "https://github.com/osynge/converge"
 categories = ["data-structures", "config"]
+readme = "../README.md"
 
 
 [lib]
