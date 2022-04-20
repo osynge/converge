@@ -8,7 +8,7 @@ description = "Test layering the configuration from multiple sources using a der
 homepage = ""
 repository = "https://github.com/osynge/converge"
 keywords = ["config", "converge", "merge", "derive", "configuration"]
-readme = "crates-io.md"
+readme = "../README.md"
 include = ["src/**/*.rs", "crates-io.md", "README.md", "LICENSE-APACHE", "LICENSE-MIT"]
 categories = ["data-structures", "config"]
 
