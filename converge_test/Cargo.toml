@@ -5,7 +5,6 @@ authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
 description = "Test layering the configuration from multiple sources using a derived Converge trait implementation."
-homepage = ""
 repository = "https://github.com/osynge/converge"
 keywords = ["config", "converge", "merge", "derive", "configuration"]
 readme = "../README.md"
