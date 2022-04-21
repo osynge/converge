@@ -1,6 +1,6 @@
 [package]
 name = "converge_test"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
@@ -16,6 +16,6 @@ name = "converge_test"
 proc-macro = true
 
 [dependencies]
-converge = { version = "0.0.1", path = "../converge" }
-converge_derive = { version = "0.0.1", path = "../converge_derive" }
+converge = { version = "0.0.3", path = "../converge" }
+converge_derive = { version = "0.0.3", path = "../converge_derive" }
 pretty_assertions = "1"
