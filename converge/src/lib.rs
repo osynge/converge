@@ -41,6 +41,7 @@ with it the amount of testing needed.
 
 */
 pub use converge_derive::Converge;
+pub mod strategies;
 pub trait Converge<Rhs = Self> {
     /*! # The Converge Trait.
 

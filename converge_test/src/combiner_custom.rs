@@ -6,7 +6,7 @@ mod tests {
 
     #[derive(Converge, PartialEq)]
     struct Simple {
-        #[converge(strategy = custom_combiner_simple)]
+        #[converge(strategy = converge::strategies::vec::replace_empty)]
         number: Vec<i16>,
     }
 
@@ -21,13 +21,6 @@ mod tests {
         }
     }
 
-    fn custom_combiner_simple(a: Vec<i16>, b: Vec<i16>) -> Vec<i16> {
-        match a.len() == 0 {
-            false => a,
-            true => b,
-        }
-    }
-
     #[test]
     fn test_self_some_default_some() {
         let some_1 = Simple::new_with(&[1]);
@@ -39,6 +32,14 @@ mod tests {
     #[test]
     fn test_self_none_default_some() {
         let empty = Simple::new_empty();
+        let some_2 = Simple::new_with(&[2]);
+        let out = empty.converge(some_2);
+        assert!(out == Simple::new_with(&[2]));
+    }
+
+    #[test]
+    fn test_self_empty_default_some() {
+        let empty = Simple::new_with(&[]);
         let some_2 = Simple::new_with(&[2]);
         let out = empty.converge(some_2);
         assert!(out == Simple::new_with(&[2]));

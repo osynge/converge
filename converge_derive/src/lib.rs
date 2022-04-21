@@ -8,8 +8,8 @@ use converge_default::impl_converge_derive;
 
 The combine attribute can take either:
 
-* #[combine(nest)]
-* #[combine(strategy = custom_converge_function)]
+* #[converge(nest)]
+* #[converge(strategy = custom_converge_function)]
 
 ## nest
 

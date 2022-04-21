@@ -1,6 +1,6 @@
 use proc_macro2::TokenStream;
 use quote::quote;
-use syn::{Data, DataStruct, DeriveInput, Fields, Ident, Path, Type, TypePath};
+use syn::{Data, DataStruct, DeriveInput, Fields, Path, Type, TypePath};
 
 pub fn impl_converge_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
     let name = &ast.ident;
@@ -94,7 +94,7 @@ fn is_option(field_ty: &Type) -> bool {
 #[derive(Default)]
 struct CombineMeta {
     nest: Option<proc_macro2::Span>,
-    strategy: Option<Ident>,
+    strategy: Option<syn::Path>,
 }
 
 impl CombineMeta {
@@ -136,11 +136,9 @@ impl syn::parse::Parse for CombineMeta {
         } else if lookahead.peek(kw::strategy) {
             let _: kw::strategy = input.parse()?;
             let _: syn::Token![=] = input.parse()?;
-            let vis = input.parse()?;
-
             Ok(Self {
                 nest: None,
-                strategy: Some(vis),
+                strategy: Some(input.call(Path::parse_mod_style)?),
             })
         } else {
             Err(lookahead.error())

@@ -35,7 +35,7 @@ It is based on a trait `Converge` with a single method
 `converge` this is in the crate `converge`.
 
     pub trait Converge<Rhs = Self> {
-        fn converge(&self, default: &Rhs) -> Self;
+        fn converge(self, default: Rhs) -> Self;
     }
 
 This trait can be derived using `converge_derive` as shown below.
