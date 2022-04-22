@@ -1,6 +1,6 @@
 # Converge
 
-A Layered configuration system for Rust applications using little code.
+Layered configuration system for Rust applications using little code.
 
 ## Introduction
 
@@ -69,15 +69,21 @@ The structure implementing the trait `Converge` should contain a logical
 grouping of fields to represent each setting you may wish to use as part of your
 layered configuration.
 
-### Example deriving `Converge` with nested structures
-
-Nested
+### Example deriving `Converge` structures
 
     #[derive(Converge)]
     pub struct ConfigRabbitMqCredentials {
         pub username: Option<String>,
         pub password: Option<String>,
     }
+
+As can be seen in the Quickstart These fields are typically [Option\<T\>](https://doc.rust-lang.org/std/option/).
+This allows the implementation to detect that the field is not set and get it
+from the default should that have a value. It is possible to have T typed fields
+that are not Optional values, but this not usually as then `converge` just takes
+the left hand side value.
+
+### Example deriving nested `Converge` structures
 
     #[derive(Converge)]
     pub struct ConfigRabbitMQ {
@@ -87,17 +93,20 @@ Nested
         pub credentials: Option<ConfigRabbitMqCredentials>,
     }
 
-When using Fields types that also implement `Converge` you can mark
-fields as also supporting `Converge` with the `converge` attribute, this then
+When using Fields types that also implement `Converge` you can mark fields as
+also supporting `Converge` with the `#[converge(nest)]` attribute, this then
 allows `converge` to be used on this structure by `converge`.
 
-As can be seen in the Quickstart These fields are typically
-[Option](https://doc.rust-lang.org/std/option/)\<T\>. This allows the
-implementation to detect that the field is not set and get it from the default
-should that have a value. It is possible to have T typed fields that are not
-Optional values, but this not usually as it reduces the
+Alternatively fields can be marked with a custom strategy for custom converging.
 
-The type T is bound to implement `Converge` or `Clone`.
+    # [converge(strategy = converge::strategies::vec::replace_empty)]
+
+Where the strategy is set to a function in the form:
+
+    fn custom_function<T>(lhs: T, rhs: T) -> T
+
+Where `T` matches the type of the field. The `converge` crate includes some
+common generic strategies sorted in modules by container type.
 
 ## How to integrate data sources
 
@@ -106,10 +115,8 @@ configuration file formats, the command line, and the execution environment
 variables. In practice the resultant structure presented by these libraries is
 often closely bound to the input source. The `Converge trait` requires
 that each source provides a common data structure. By implementing the
-[From trait](https://doc.rust-lang.org/std/convert/trait.From.html) or
-alternatively the
-[TryFrom trait](https://doc.rust-lang.org/std/convert/trait.TryFrom.html) for
-your common data format `Converge` can be applied to these data sources.
+[From trait](https://doc.rust-lang.org/std/convert/trait.From.html) or alternatively the [TryFrom trait](https://doc.rust-lang.org/std/convert/trait.TryFrom.html) for your common data format
+`Converge` can be applied to these data sources.
 
 As a non exhaustive list of data source libraries we can recommend:
 
