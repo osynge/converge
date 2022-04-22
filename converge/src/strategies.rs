@@ -6,7 +6,7 @@ pub mod vec {
     /**
     concatenate lhs and rhs
     */
-    pub fn concatenate<T>(mut lhs: Vec<T>, mut rhs: Vec<T>) -> Vec<T> {
+    pub fn concatenate<T>(mut lhs: Vec<T>, rhs: Vec<T>) -> Vec<T> {
         lhs.extend(rhs);
         lhs
     }
