@@ -83,7 +83,7 @@ Nested
     pub struct ConfigRabbitMQ {
         pub host: Option<String>,
         pub port: Option<i32>,
-        #[converge]
+        #[converge(nest)]
         pub credentials: Option<ConfigRabbitMqCredentials>,
     }
 
