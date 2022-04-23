@@ -63,27 +63,22 @@ to derive new instances with clear and simple prescience.
     let config_env : Config = parse_env_to_config();
     let cfg = config_commandline.converge(config_file).converge(config_env);
 
+It is possible to have T typed fields that are not Optional values, but this not
+usually as then `converge` just takes the left hand side value.
+
 ## Designing your configuration structure
 
 The structure implementing the trait `Converge` should contain a logical
 grouping of fields to represent each setting you may wish to use as part of your
 layered configuration.
 
-### Example deriving `Converge` structures
+### Example deriving nested `Converge` structures
 
     #[derive(Converge)]
     pub struct ConfigRabbitMqCredentials {
         pub username: Option<String>,
         pub password: Option<String>,
     }
-
-As can be seen in the Quickstart These fields are typically [Option\<T\>](https://doc.rust-lang.org/std/option/).
-This allows the implementation to detect that the field is not set and get it
-from the default should that have a value. It is possible to have T typed fields
-that are not Optional values, but this not usually as then `converge` just takes
-the left hand side value.
-
-### Example deriving nested `Converge` structures
 
     #[derive(Converge)]
     pub struct ConfigRabbitMQ {
@@ -97,11 +92,24 @@ When using Fields types that also implement `Converge` you can mark fields as
 also supporting `Converge` with the `#[converge(nest)]` attribute, this then
 allows `converge` to be used on this structure by `converge`.
 
-Alternatively fields can be marked with a custom strategy for custom converging.
+### Deriving with custom field converge strategies
 
-    # [converge(strategy = converge::strategies::vec::replace_empty)]
+    #[derive(Converge)]
+    pub struct ConfigRabbitMqCredentials {
+        pub username: Option<String>,
+        pub password: Option<String>,
+    }
 
-Where the strategy is set to a function in the form:
+    #[derive(Converge)]
+    pub struct ConfigRabbitMQ {
+        pub host: Option<String>,
+        pub port: Option<i32>,
+        #[converge(strategy = converge::strategies::vec::replace_empty)]
+        pub credentials: Vec<ConfigRabbitMqCredentials>,
+    }
+
+Fields may alternatively be marked with a custom strategy for a custom converge.
+Where the strategy is the path to a function in the form:
 
     fn custom_function<T>(lhs: T, rhs: T) -> T
 
