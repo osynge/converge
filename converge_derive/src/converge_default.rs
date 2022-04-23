@@ -33,25 +33,33 @@ pub fn impl_converge_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
             let field_name = &f.ident;
             let field_ty = &f.ty;
 
-            match (meta.nest, meta.strategy) {
+            match (meta.nest, meta.strategy, is_option(field_ty)) {
                 // This should never happen if checked CombineMeta::merge
-                (Some(_), Some(_)) => panic!("conflicting attribute argument"),
-                (None, Some(strategy_fn)) => Ok(
+                (Some(_), Some(_), _) => panic!("conflicting attribute argument"),
+                (None, Some(strategy_fn), true) =>
+                    Ok(
+                        quote! {#field_name : match (self.#field_name, default.#field_name) {
+                            (Some(lhs),Some(rhs)) => Some(#strategy_fn(self.#field_name , default.#field_name)),
+                            (Some(lhs),None) => Some(lhs),
+                            (None,Some(rhs)) => Some(rhs),
+                            (None,None) => None,
+                            },
+                        }
+                    ),
+                (None, Some(strategy_fn), false) => Ok(
                     quote! {#field_name : #strategy_fn(self.#field_name , default.#field_name),
                     },
                 ),
-                (Some(_), None) => Ok(
+                (Some(_), None, _) => Ok(
                     quote! {#field_name : self.#field_name.converge( default.#field_name),
                     },
                 ),
-                (None, None) => match is_option(field_ty) {
-                    true => Ok(
-                        quote! {#field_name : self.#field_name.or(default.#field_name),
-                        },
-                    ),
-                    false => Ok(quote! {#field_name : self.#field_name,
-                    }),
-                },
+                (None, None, true) => Ok(
+                    quote! {#field_name : self.#field_name.or(default.#field_name),
+                    },
+                ),
+                (None, None, false) => Ok(quote! {#field_name : self.#field_name,
+                }),
             }
         })
         .collect::<syn::Result<TokenStream>>()?;
