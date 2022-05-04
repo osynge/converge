@@ -1,6 +1,8 @@
 # Converge
 
-Layered configuration system for Rust applications using little code.
+Layered configuration system for Rust applications using little code. By only
+converging configuration, flexibility of the configuration source and how it
+converges is under control of the user.
 
 ## Introduction
 
@@ -64,7 +66,7 @@ to derive new instances with clear and simple prescience.
     let cfg = config_commandline.converge(config_file).converge(config_env);
 
 It is possible to have T typed fields that are not Optional values, but this not
-usually as then `converge` just takes the left hand side value.
+usual as then `converge` just with take the left hand side value.
 
 ## Designing your configuration structure
 
@@ -126,13 +128,28 @@ that each source provides a common data structure. By implementing the
 [From trait](https://doc.rust-lang.org/std/convert/trait.From.html) or alternatively the [TryFrom trait](https://doc.rust-lang.org/std/convert/trait.TryFrom.html) for your common data format
 `Converge` can be applied to these data sources.
 
-As a non exhaustive list of data source libraries we can recommend:
+## Associated libraries
+
+A non exhaustive list of data source libraries we can recommend to provide
+configuration data.
 
 * To parse the application command line:
-  * clap
-  * StructOpt
+  * [clap](https://crates.io/crates/clap)
+  * [StructOpt](https://crates.io/crates/structopt)
 * To parse configuration files:
-  * toml
-  * serde_xml_rs
-  * serde_yaml
-  * serde_json
+  * [toml](https://crates.io/crates/toml)
+  * [serde_yaml](https://crates.io/crates/serde_yaml)
+  * [serde_json](https://crates.io/crates/serde_json)
+  * [serde_xml_rs](https://crates.io/crates/serde-xml-rs)
+* To parse the environment variables:
+  * [envy](https://crates.io/crates/envy)
+  * [envconfig](https://crates.io/crates/envconfig)
+
+## Alternatives
+
+A non exhaustive list of possible alternatives.
+
+* [merge](https://crates.io/crates/merge)
+  * Similar idea to converge.
+* [twelf](https://crates.io/crates/twelf)
+  * Configuration solution for Rust including 12-Factor support.
