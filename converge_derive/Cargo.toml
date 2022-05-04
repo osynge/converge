@@ -1,6 +1,6 @@
 [package]
 name = "converge_derive"
-version = "0.0.3"
+version = "0.0.4"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
