@@ -4,7 +4,9 @@ version = "0.0.3"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
-description = "Layer the configuration from multiple sources using a derived Converge trait implementation."
+description = """The `converge::Converge` trait can be derived,
+`converge_derive` provides the macros that are applied to `Converge` structures.
+"""
 keywords = ["config", "converge", "merge", "derive", "configuration"]
 repository = "https://github.com/osynge/converge"
 categories = ["data-structures", "config"]
