@@ -1,0 +1,24 @@
+[package]
+name = "converge_example_flexible"
+version = "0.0.4"
+authors = ["Owen Synge <osynge@googlemail.com>"]
+license = "MIT OR Apache-2.0"
+edition = "2021"
+description = """Flexible example for `converge::Converge` trait and the
+`converge_derive` proc-macro."""
+repository = "https://github.com/osynge/converge"
+keywords = ["config", "converge", "merge", "derive", "configuration"]
+readme = "../../README.md"
+include = ["src/**/*.rs", "crates-io.md", "README.md", "LICENSE-APACHE", "LICENSE-MIT"]
+categories = ["data-structures", "config"]
+
+[dependencies]
+converge = { version = "0.0.4", path = "../../converge" }
+converge_derive = { version = "0.0.4", path = "../../converge_derive" }
+pretty_assertions = "1"
+clap = { version = "4.1.4", features = ["cargo"] }
+toml = "0.7.1"
+serde = "1.0.152"
+serde_derive = "1.0.152"
+thiserror = "1.0.38"
+dirs = "4.0.0"

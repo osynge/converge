@@ -3,4 +3,6 @@ members = [
     "converge",
     "converge_derive",
     "converge_test",
+    "examples/concise",
+    "examples/flexible",
 ]
