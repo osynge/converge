@@ -32,7 +32,7 @@ pub fn cli_clap() -> crate::Config {
         )
         .arg(
             Arg::new("quiet")
-                .short('v')
+                .short('q')
                 .long("quiet")
                 .action(ArgAction::Count)
                 .help("Decrease log output"),
