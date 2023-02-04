@@ -1,5 +1,4 @@
 mod config;
-mod mergeable;
 
 fn main() -> Result<(), u8> {
     let config = crate::config::get_config(std::env::args_os(), std::env::vars_os());
