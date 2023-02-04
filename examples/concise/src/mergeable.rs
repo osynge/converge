@@ -74,9 +74,9 @@ where
         (Ok(new_key), Ok(new_val)) => Some((new_key, new_val)),
         (_, _) => None,
     });
-    let env = envy::prefixed("CORE10_").from_iter(local_iter)?;
+    let env = envy::prefixed("CONVERGE_EXAMPLE_CONCISE_").from_iter(local_iter)?;
     let cli = Config::parse_from(args);
-    // Get the convereged cli and env config.
+    // Get the converged cli and env config.
     let cli_env = cli.converge(env);
     // converge cfg with config collector.
     if let Some(file_path) = &cli_env.config_file {
