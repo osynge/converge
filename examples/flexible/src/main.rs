@@ -21,7 +21,7 @@ pub struct Config {
 
 impl Config {
     //set the method's context
-    pub fn new() -> Config {
+    pub fn default() -> Config {
         Config {
             config_file: None,
             loglevel: None,
@@ -64,7 +64,7 @@ pub(crate) fn configure() -> Result<Config, errors::ConfigureErr> {
         Some(p) => toml::load_config_from_path_string(p)?,
         None => match toml::load_config_from_default_path() {
             Ok(f) => f,
-            Err(_) => Config::new(),
+            Err(_) => Config::default(),
         },
     };
     let cfg = cfg_clap_env.converge(cfg_file);
@@ -120,15 +120,15 @@ mod tests {
     #[test]
     fn gets_default_with_none() {
         let a = gen_config_with_data_1();
-        let b = Config::new();
+        let b = Config::default();
         let c = b.converge(a.clone());
         assert_eq!(c, a);
     }
 
     #[test]
     fn gets_none_with_none() {
-        let a = Config::new();
-        let b = Config::new();
+        let a = Config::default();
+        let b = Config::default();
         let c = b.converge(a.clone());
         assert_eq!(c, a);
     }
@@ -136,7 +136,7 @@ mod tests {
     #[test]
     fn gets_original_with_none() {
         let a = gen_config_with_data_1();
-        let b = Config::new();
+        let b = Config::default();
         let c = a.clone().converge(b);
         assert_eq!(c, a);
     }
