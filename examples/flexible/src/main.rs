@@ -3,8 +3,9 @@ mod environment;
 mod errors;
 mod toml;
 use converge::Converge;
+use std::default::Default;
 
-#[derive(Debug, Clone, PartialEq, Converge)]
+#[derive(Debug, Clone, PartialEq, Converge, Default)]
 pub struct Config {
     pub config_file: Option<String>,
     pub loglevel: Option<i8>,
@@ -17,25 +18,6 @@ pub struct Config {
     pub run_identifier: Option<String>,
     pub run_sk: Option<String>,
     pub service_url: Option<String>,
-}
-
-impl Config {
-    //set the method's context
-    pub fn default() -> Config {
-        Config {
-            config_file: None,
-            loglevel: None,
-            xunit_local_globs: None,
-            environment_sk: None,
-            environment_keys: None,
-            project_sk: None,
-            project_identifier: None,
-            project_human_name: None,
-            run_identifier: None,
-            run_sk: None,
-            service_url: None,
-        }
-    }
 }
 
 impl From<toml::ConfigFile> for Config {
