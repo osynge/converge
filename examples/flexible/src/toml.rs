@@ -20,7 +20,7 @@ pub(crate) fn load_config_from_path_string(input_path: &String) -> Result<Config
     if !path.is_file() {
         return Err(ConfigureErr::FilePathIsNotFile(String::from(input_path)));
     }
-    let toml_str = std::fs::read_to_string(&path)?;
+    let toml_str = std::fs::read_to_string(path)?;
     let cf: ConfigFile = toml::from_str(&toml_str)?;
     Ok(cf.into())
 }
