@@ -1,5 +1,5 @@
 pub fn cli_env() -> crate::Config {
-    let mut out = crate::Config::new();
+    let mut out = crate::Config::default();
     for (key, value) in std::env::vars() {
         if "XRC_CONFIG".eq(&key) {
             out.config_file = Some(value.clone());
