@@ -88,12 +88,10 @@ fn is_option(field_ty: &Type) -> bool {
                 .into_pairs()
                 .map(|path_pair| path_pair.value().ident.to_string())
                 .collect();
-            match filtered.join("::").as_str() {
-                "Option" | "option::Option" | "std::option::Option" | "core::option::Option" => {
-                    true
-                }
-                _ => false,
-            }
+            matches!(
+                filtered.join("::").as_str(),
+                "Option" | "option::Option" | "std::option::Option" | "core::option::Option"
+            )
         }
         _ => false,
     }
