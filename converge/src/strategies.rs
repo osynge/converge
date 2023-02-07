@@ -15,7 +15,7 @@ pub mod vec {
     Use the lhs, unless it is empty, then use the rhs.
      */
     pub fn replace_empty<T>(lhs: Vec<T>, rhs: Vec<T>) -> Vec<T> {
-        match lhs.len() == 0 {
+        match lhs.is_empty() {
             false => lhs,
             true => rhs,
         }
