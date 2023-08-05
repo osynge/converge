@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.5] - 2023-09-23
+
+- Add renovate to update deps.
+- Setup githubs CI/CD.
+- Added some basic examples.
+- updated dependencies.
+  - syn, quote, proc-macro2
+- clippy on examples.
+
 ## [0.0.4] - 2022-05-04
 
 - Improve documentation.
