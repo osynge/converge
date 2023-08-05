@@ -22,7 +22,7 @@ pub fn impl_converge_derive(ast: &DeriveInput) -> syn::Result<TokenStream> {
             let meta: CombineMeta = f
                 .attrs
                 .iter()
-                .filter(|attr| attr.path.is_ident("converge"))
+                .filter(|attr| attr.path().is_ident("converge"))
                 .try_fold(CombineMeta::default(), |meta, attr| {
                     let list: syn::punctuated::Punctuated<CombineMeta, syn::Token![,]> =
                         attr.parse_args_with(syn::punctuated::Punctuated::parse_terminated)?;
