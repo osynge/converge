@@ -1,6 +1,6 @@
 [package]
 name = "converge_example_flexible"
-version = "0.0.4"
+version = "0.0.5"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2021"
@@ -13,8 +13,8 @@ include = ["src/**/*.rs", "crates-io.md", "README.md", "LICENSE-APACHE", "LICENS
 categories = ["data-structures", "config"]
 
 [dependencies]
-converge = { version = "0.0.4", path = "../../converge" }
-converge_derive = { version = "0.0.4", path = "../../converge_derive" }
+converge = { version = "0.0.5", path = "../../converge" }
+converge_derive = { version = "0.0.5", path = "../../converge_derive" }
 pretty_assertions = "1"
 clap = { version = "4.1.4", features = ["cargo"] }
 toml = "0.7.1"

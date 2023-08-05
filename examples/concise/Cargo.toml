@@ -1,6 +1,6 @@
 [package]
 name = "converge_example_concise"
-version = "0.0.4"
+version = "0.0.5"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -12,7 +12,7 @@ pretty_assertions = "1"
 thiserror = "1.0.31"
 
 # Layered configuration.
-converge = { version = "0.0.4", path = "../../converge" }
+converge = { version = "0.0.5", path = "../../converge" }
 
 # Env configuration.
 envy = "0.4.2"
