@@ -19,4 +19,4 @@ proc-macro = true
 [dependencies]
 converge = { version = "0.0.5", path = "../converge" }
 converge_derive = { version = "0.0.5", path = "../converge_derive" }
-pretty_assertions = "1"
+pretty_assertions = "1.4.0"
