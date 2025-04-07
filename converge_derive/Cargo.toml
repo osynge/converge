@@ -4,6 +4,8 @@ version = "0.0.6"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2024"
+resolver = "3"
+
 description = """The `converge::Converge` trait can be derived,
 `converge_derive` provides the macros that are applied to `Converge` structures.
 """

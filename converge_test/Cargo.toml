@@ -4,6 +4,7 @@ version = "0.0.6"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2024"
+resolver = "3"
 description = """Tests for the `converge::Converge` trait and the
 `converge_derive` proc-macro."""
 repository = "https://github.com/osynge/converge"
