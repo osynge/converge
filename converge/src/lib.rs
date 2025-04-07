@@ -79,7 +79,6 @@ pub trait Converge<Rhs = Self> {
     /// [`Some(val)`](`core::option::Option::Some`) where `val` is the result of
     /// calling converge on the field's value wrapped by
     /// [`Some`](`core::option::Option::Some`) for both self and default.
-
     fn converge(self, default: Rhs) -> Self;
 }
 /** Implementing Converge for Option of a structure implementing Converge
