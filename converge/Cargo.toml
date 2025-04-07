@@ -4,6 +4,7 @@ version = "0.0.6"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2024"
+resolver = "3"
 description = """Layered configuration, can be expressed in a single
 line of code. The `Converge` trait merges instances of structures into a new
 instance of a structure. The `Converge` trait can be derived, and when needed

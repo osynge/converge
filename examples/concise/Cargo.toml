@@ -2,6 +2,7 @@
 name = "converge_example_concise"
 version = "0.0.6"
 edition = "2024"
+resolver = "3"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
