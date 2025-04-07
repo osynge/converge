@@ -44,10 +44,7 @@ pub(crate) fn configure() -> Result<Config, errors::ConfigureErr> {
     let cfg_clap_env = cfg_clap.converge(cfg_env);
     let cfg_file = match &cfg_clap_env.config_file {
         Some(p) => toml::load_config_from_path_string(p)?,
-        None => match toml::load_config_from_default_path() {
-            Ok(f) => f,
-            Err(_) => Config::default(),
-        },
+        None => toml::load_config_from_default_path().unwrap_or_default(),
     };
     let cfg = cfg_clap_env.converge(cfg_file);
     Ok(cfg)
