@@ -3,7 +3,7 @@ name = "converge_test"
 version = "0.0.5"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
-edition = "2021"
+edition = "2024"
 description = """Tests for the `converge::Converge` trait and the
 `converge_derive` proc-macro."""
 repository = "https://github.com/osynge/converge"

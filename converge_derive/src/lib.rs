@@ -26,8 +26,10 @@ pub fn converge(tokens: TokenStream) -> TokenStream {
     let ast = syn::parse_macro_input!(tokens as syn::DeriveInput);
 
     // Build the impl
-    let gen = impl_converge_derive(&ast);
+    let generated = impl_converge_derive(&ast);
 
     // Return the generated impl
-    gen.unwrap_or_else(syn::Error::into_compile_error).into()
+    generated
+        .unwrap_or_else(syn::Error::into_compile_error)
+        .into()
 }
