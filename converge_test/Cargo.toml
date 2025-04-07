@@ -18,6 +18,6 @@ name = "converge_test"
 proc-macro = true
 
 [dependencies]
-converge = { version = "0.0.5", path = "../converge" }
-converge_derive = { version = "0.0.5", path = "../converge_derive" }
+converge = { version = "0.0.6", path = "../converge" }
+converge_derive = { version = "0.0.6", path = "../converge_derive" }
 pretty_assertions = "1"

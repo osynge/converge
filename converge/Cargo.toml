@@ -20,4 +20,4 @@ readme = "../README.md"
 name = "converge"
 
 [dependencies]
-converge_derive = { version = "0.0.5", path = "../converge_derive" }
+converge_derive = { version = "0.0.6", path = "../converge_derive" }
