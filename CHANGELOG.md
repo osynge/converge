@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.6] - 2025-04-07
+
+- updated dependencies.
+  - toml, thiserror, dirs
+- updated edition.
+- fixed some clippy warnings.
+
 ## [0.0.5] - 2023-09-23
 
 - Add renovate to update deps.

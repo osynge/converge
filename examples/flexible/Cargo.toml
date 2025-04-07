@@ -1,6 +1,6 @@
 [package]
 name = "converge_example_flexible"
-version = "0.0.5"
+version = "0.0.6"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2024"
