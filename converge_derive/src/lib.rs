@@ -3,7 +3,6 @@ mod converge_default;
 use converge_default::impl_converge_derive;
 
 #[proc_macro_derive(Converge, attributes(converge))]
-
 /** Simple macro to derive the Converge trait.
 
 The combine attribute can take either:
