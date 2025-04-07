@@ -67,18 +67,18 @@ pub trait Converge<Rhs = Self> {
     /// [`Option<T>`](`core::option::Option`) where T implements Converge.
     ///
     /// If the field of self:
-    ///  * is of type [`Option<T>`](`core::option::Option`), and has the
-    /// value [None](`core::option::Option::None`), the fields value is cloned
-    /// from default's field instead.
+    /// * is of type [`Option<T>`](`core::option::Option`), and has the
+    ///    value [None](`core::option::Option::None`), the fields value is cloned
+    ///    from default's field instead.
     /// * implements Converge, then the result of calling converge on that field,
-    /// with the parameter from defaults field.
+    ///   with the parameter from defaults field.
     /// * is of type [`Option<T>`](`core::option::Option`), where T
-    /// implements the [Converge trait](Self) and the value is
-    /// [`Some<T>`](`core::option::Option::Some`) for both
-    /// self and default, the returned structures fields value is
-    /// [`Some(val)`](`core::option::Option::Some`) where `val` is the result of
-    /// calling converge on the field's value wrapped by
-    /// [`Some`](`core::option::Option::Some`) for both self and default.
+    ///   implements the [Converge trait](Self) and the value is
+    ///   [`Some<T>`](`core::option::Option::Some`) for both
+    ///   self and default, the returned structures fields value is
+    ///   [`Some(val)`](`core::option::Option::Some`) where `val` is the result of
+    ///   calling converge on the field's value wrapped by
+    ///   [`Some`](`core::option::Option::Some`) for both self and default.
     fn converge(self, default: Rhs) -> Self;
 }
 /** Implementing Converge for Option of a structure implementing Converge
