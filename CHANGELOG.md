@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.7] - 2026-09-24
+
+- updated dependencies.
+  - clap, dirs, proc-macro2, quote, serde, serde_derive, syn, thiserror, toml
+
 ## [0.0.6] - 2025-04-07
 
 - updated dependencies.

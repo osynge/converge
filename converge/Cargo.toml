@@ -1,6 +1,6 @@
 [package]
 name = "converge"
-version = "0.0.6"
+version = "0.0.7"
 authors = ["Owen Synge <osynge@googlemail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2024"
@@ -20,4 +20,4 @@ readme = "../README.md"
 name = "converge"
 
 [dependencies]
-converge_derive = { version = "0.0.6", path = "../converge_derive" }
+converge_derive = { version = "0.0.7", path = "../converge_derive" }
