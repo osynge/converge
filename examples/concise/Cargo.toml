@@ -10,7 +10,7 @@ resolver = "3"
 pretty_assertions = "1"
 
 # [derive(x)] macros for errors
-thiserror = "2.0.12"
+thiserror = "2.0.21"
 
 # Layered configuration.
 converge = { version = "0.0.6", path = "../../converge" }
@@ -19,8 +19,8 @@ converge = { version = "0.0.6", path = "../../converge" }
 envy = "0.4.2"
 
 # cli configuration.
-clap = { version = "*", features = ["derive"] }
+clap = { version = "4", features = ["derive"] }
 
 # toml configuration
-toml = "0.8.20"
-serde = { version = "1.0.137", features = ["derive"] }
+toml = "1.1.6"
+serde = { version = "1.0.229", features = ["derive"] }
